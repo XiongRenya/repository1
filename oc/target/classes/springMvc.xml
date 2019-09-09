@@ -1,0 +1,26 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<!--开启扫描包注解-->
+    <context:component-scan base-package="com.oc.Controller"/>
+    <!--配置视图解析器-->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/static/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--释放静态资源-->
+    <mvc:resources mapping="/res/**" location="/res/"/>
+    <mvc:resources mapping="/upload/**" location="upload/"/>
+    <mvc:resources mapping="/WEB-INF/**" location="/WEB-INF/"/>
+<!--配置上传文件-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="500000"/>
+        <property name="defaultEncoding" value="utf-8"/>
+    </bean>
+    <!--开启注解支持，适配器处理器，适配器运行器-->
+    <mvc:annotation-driven/>
+</beans>
